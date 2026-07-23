@@ -68,6 +68,13 @@ cargo run -- prdoc generate --pr 42
 cargo run -- changelog generate --from v0.1.0
 ```
 
+## Documentation
+
+- `docs/index.md` — Documentation index
+- `docs/getting-started/overview.md` — Installation and usage
+- `docs/architecture/overview.md` — Package design and template system
+- `docs/contributor/guide.md` — Extending rusty-repo
+
 ## Skills
 
 Composable workflows in `skills/<name>/skill.toml`. The `scaffold` skill provides a step-by-step guide for using rusty-repo to create new projects.
