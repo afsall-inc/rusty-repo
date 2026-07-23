@@ -86,6 +86,19 @@ Composable workflows in `skills/<name>/skill.toml`. The `scaffold` skill provide
 3. **Customize templates**: Edit files under `templates/` to match your conventions
 4. **Projects like montrs can be created** from the workspace template: `rusty-repo new montrs --template workspace`
 
+## Container Image
+
+A Docker image is published to `ghcr.io/afsall-inc/rusty-repo` on every version bump:
+
+- **CD**: On merge to `main` when `Cargo.toml` version changes — image is pushed with `latest`, `{version}`, and `{major}.{minor}` tags
+- **Release**: On `v*` tag push — image is pushed with `{version}` and `latest` tags
+
+Usage:
+```bash
+docker pull ghcr.io/afsall-inc/rusty-repo:latest
+docker run --rm ghcr.io/afsall-inc/rusty-repo:latest new my-project
+```
+
 ## Gotchas
 
 - Templates use `{{project_name}}` and `{{author}}` placeholders — these get replaced during scaffolding

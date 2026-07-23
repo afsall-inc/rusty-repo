@@ -15,6 +15,13 @@ cargo run -- init
 cargo run -- templates
 ```
 
+Or use the Docker image:
+
+```bash
+docker pull ghcr.io/afsall-inc/rusty-repo:latest
+docker run --rm -v "$PWD:/workspace" ghcr.io/afsall-inc/rusty-repo:latest new my-project
+```
+
 ## Templates
 
 - **default** — Single crate project with CI/CD, AGENTS.md, PRDoc, mise.toml
