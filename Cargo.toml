@@ -8,8 +8,8 @@ members = [
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
-authors = ["Afsall"]
-repository = "https://github.com/afsall/rusty-repo"
+authors = ["Afsall Inc."]
+repository = "https://github.com/afsall-inc/rusty-repo"
 
 [workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
