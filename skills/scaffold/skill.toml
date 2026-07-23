@@ -1,0 +1,13 @@
+[skill]
+name = "scaffold"
+description = "Step-by-step guide to scaffold a new Rust project using rusty-repo"
+version = "1.0"
+
+[workflow]
+steps = [
+  { name = "Choose template", prompt = "Which template? default (single crate) or workspace (multi-package)?" },
+  { name = "Create project", command = "rusty-repo new {{project_name}} --template {{template}}" },
+  { name = "Verify", command = "cd {{project_name}} && cargo check --workspace" },
+  { name = "Format", command = "cd {{project_name}} && cargo fmt --all" },
+  { name = "Initialize git", command = "cd {{project_name}} && git init && git add . && git commit -m 'Initial scaffold from rusty-repo'" },
+]

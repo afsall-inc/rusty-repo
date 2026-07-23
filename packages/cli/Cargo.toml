@@ -1,0 +1,19 @@
+[package]
+name = "rusty-repo-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "CLI to scaffold new Rust projects from templates."
+
+[[bin]]
+name = "rusty-repo"
+path = "src/bin/rusty_repo.rs"
+
+[dependencies]
+clap = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
