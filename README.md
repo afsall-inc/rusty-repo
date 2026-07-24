@@ -1,6 +1,6 @@
 # Rusty-Repo
 
-A 100% Rust template repo for starting new Rust projects. Comes with CLI, CI/CD, PRDoc, and minimal agentic infrastructure baked in.
+A Rust template repo for starting new Rust projects. Comes with CLI, CI/CD, PRDoc, and minimal agentic infrastructure baked in.
 
 ## Usage
 
@@ -29,8 +29,8 @@ docker run --rm -v "$PWD:/workspace" ghcr.io/afsall-inc/rusty-repo:latest new my
 
 ## Projects Using This Template
 
-- [montrs](https://github.com/afsall-labs/montrs) — Full-stack Rust framework
-- [changelogger](https://github.com/anomalyco/changelogger) — Changelog generation tool
+- [montrs](https://github.com/afsall-inc/montrs) — Full-stack Rust framework
+- [changelogger](https://github.com/afsall-inc/changelogger) — Changelog generation tool
 
 ## License
 
