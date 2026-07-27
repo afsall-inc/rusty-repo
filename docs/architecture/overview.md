@@ -8,6 +8,20 @@
 
 The CLI is intentionally minimal. It copies templates from `templates/` and replaces `{{project_name}}` and `{{author}}` placeholders.
 
+## Container Image
+
+The `Dockerfile` uses a multi-stage build:
+1. `rust:1.84-slim-bookworm` — compiles the binary
+2. `gcr.io/distroless/cc-debian12` — minimal runtime image
+
+The `.dockerignore` excludes source control, build artifacts, and docs from the build context.
+
+On every version bump (detected from `Cargo.toml`), the CD workflow pushes to `ghcr.io/afsall-inc/rusty-repo` with `latest`, `{version}`, and `{major}.{minor}` tags.
+
+## License
+
+Dual-licensed under Apache-2.0 OR MIT.
+
 ## Template System
 
 Templates live under `templates/`:

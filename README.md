@@ -1,6 +1,18 @@
 # Rusty-Repo
 
-A Rust template repo for starting new Rust projects. Comes with CLI, CI/CD, PRDoc, and minimal agentic infrastructure baked in.
+A Rust template repo for starting new Rust projects. Comes with CLI, CI/CD, PRDoc, and agentic infrastructure baked in.
+
+## Install
+
+```bash
+cargo install rusty-repo-cli
+```
+
+Or via Docker:
+
+```bash
+docker pull ghcr.io/afsall-inc/rusty-repo:latest
+```
 
 ## Usage
 
@@ -27,6 +39,8 @@ docker run --rm -v "$PWD:/workspace" ghcr.io/afsall-inc/rusty-repo:latest new my
 - **default** — Single crate project with CI/CD, AGENTS.md, PRDoc, mise.toml
 - **workspace** — Multi-package workspace with `apps/` and `packages/` directories
 
+- **prdoc** — PRDoc template for structured PR docs
+
 ## Projects Using This Template
 
 - [montrs](https://github.com/afsall-inc/montrs) — Full-stack Rust framework
@@ -34,4 +48,5 @@ docker run --rm -v "$PWD:/workspace" ghcr.io/afsall-inc/rusty-repo:latest new my
 
 ## License
 
-MIT
+Apache-2.0 OR MIT
+

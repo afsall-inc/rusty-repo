@@ -6,6 +6,7 @@ license.workspace = true
 authors.workspace = true
 repository.workspace = true
 description = "CLI to scaffold new Rust projects from templates."
+readme = "README.md"
 
 [[bin]]
 name = "rusty-repo"
