@@ -2,13 +2,28 @@
 
 ## Installation
 
+### From crates.io
+
 ```bash
-git clone https://github.com/afsall/rusty-repo
+cargo install rusty-repo-cli
+```
+
+### From source
+
+```bash
+git clone https://github.com/afsall-inc/rusty-repo
 cd rusty-repo
 cargo build --release
 ```
 
 The binary will be at `target/release/rusty-repo`.
+
+### Via Docker
+
+```bash
+docker pull ghcr.io/afsall-inc/rusty-repo:latest
+docker run --rm -v "$PWD:/workspace" ghcr.io/afsall-inc/rusty-repo:latest new my-project
+```
 
 ## Usage
 

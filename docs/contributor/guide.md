@@ -22,6 +22,12 @@ Commands are defined in `packages/cli/src/bin/rusty_repo.rs` using the `clap` de
 ## Development
 
 ```bash
+npm run ci
+```
+
+Or manually:
+
+```bash
 cargo check --workspace
 cargo clippy --workspace -- -D warnings
 cargo test --workspace
@@ -30,5 +36,7 @@ cargo fmt --all
 
 ## Release Process
 
-1. Tag with `v*` (e.g., `v0.1.0`)
-2. Push — GitHub Actions builds and creates a release
+1. Bump the version in `Cargo.toml` (workspace level)
+2. Merge to `main` — CD workflow builds and pushes the Docker image to `ghcr.io/afsall-inc/rusty-repo`
+3. Tag with `v*` (e.g., `v0.1.1`) — Release workflow creates a GitHub Release and pushes the Docker image
+4. Publish to crates.io: `cargo publish --package rusty-repo-cli`

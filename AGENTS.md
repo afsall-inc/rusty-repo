@@ -1,6 +1,6 @@
 # Rusty-Repo — Agent Guide
 
-This repo is a **template generator** for Rust projects. It provides a CLI (`rusty-repo`) to scaffold new Rust projects with CI/CD, PRDoc, and agentic infrastructure baked in.
+This repo is a **template generator** for Rust projects. It provides a CLI (`rusty-repo`) to scaffold new Rust projects with CI/CD, PRDoc, and agentic infrastructure baked in. Published to [crates.io](https://crates.io/crates/rusty-repo-cli) and [ghcr.io](https://github.com/afsall-inc/rusty-repo/pkgs/container/rusty-repo).
 
 ## Agentic Loop
 
@@ -75,6 +75,14 @@ cargo run -- changelog generate --from v0.1.0
 - `docs/architecture/overview.md` — Package design and template system
 - `docs/contributor/guide.md` — Extending rusty-repo
 
+## CI/CD
+
+| Workflow | Trigger | Action |
+|----------|---------|--------|
+| `ci.yml` | Push/PR to `main` | fmt → clippy → test → build |
+| `cd.yml` | Merge to `main` with version bump | Build & push Docker image to ghcr.io |
+| `release.yml` | Tag push `v*` | GitHub Release + Docker image to ghcr.io |
+
 ## Skills
 
 Composable workflows in `skills/<name>/skill.toml`. The `scaffold` skill provides a step-by-step guide for using rusty-repo to create new projects.
@@ -98,6 +106,10 @@ Usage:
 docker pull ghcr.io/afsall-inc/rusty-repo:latest
 docker run --rm ghcr.io/afsall-inc/rusty-repo:latest new my-project
 ```
+
+## License
+
+Apache-2.0 OR MIT
 
 ## Gotchas
 
