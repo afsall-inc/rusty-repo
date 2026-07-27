@@ -21,6 +21,11 @@ jobs:
         with:
           toolchain: nightly-2026-02-18
       - uses: Swatinem/rust-cache@v2
+      - name: Extract version from Cargo.toml
+        id: version
+        run: |
+          VERSION=$(grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Build
         run: cargo build --release --workspace
       - name: Create GitHub Release
@@ -28,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${{ github.ref_name }}" \
-            --title "${{ github.ref_name }}" \
+            --title "rusty-repo v${{ steps.version.outputs.VERSION }}" \
             --generate-notes
 
   container:
@@ -46,9 +51,12 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract version from tag
+      - name: Extract version from Cargo.toml
         id: version
-        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+        run: |
+          VERSION=$(grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "VERSION_MAJOR_MINOR=$(echo $VERSION | sed 's/\.[^.]*$//')" >> "$GITHUB_OUTPUT"
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -56,10 +64,11 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.VERSION }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.VERSION_MAJOR_MINOR }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
             org.opencontainers.image.description=Rusty-Repo template generator CLI
-            org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.licenses=Apache-2.0 OR MIT
           cache-from: type=gha
           cache-to: type=gha,mode=max

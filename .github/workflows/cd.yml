@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
+      version_major_minor: ${{ steps.version.outputs.version_major_minor }}
       changed: ${{ steps.version.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
@@ -22,6 +23,7 @@ jobs:
         run: |
           VERSION=$(grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "version_major_minor=$(echo $VERSION | sed 's/\.[^.]*$//')" >> "$GITHUB_OUTPUT"
           if git show HEAD~1:Cargo.toml 2>/dev/null | grep -q "^version = \"$VERSION\""; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
@@ -45,21 +47,18 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern={{version}},value=v${{ needs.detect.outputs.version }}
-            type=semver,pattern={{major}}.{{minor}},value=v${{ needs.detect.outputs.version }}
-            type=raw,value=latest
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.detect.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.detect.outputs.version_major_minor }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.description=Rusty-Repo template generator CLI
+            org.opencontainers.image.licenses=Apache-2.0 OR MIT
           cache-from: type=gha
           cache-to: type=gha,mode=max
