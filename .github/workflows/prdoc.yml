@@ -36,8 +36,13 @@ jobs:
         # Ensure at least one crate is listed (changelogger leaves crates empty when
         # no workspace packages are detected in the diff)
         if grep -q 'crates: \[ \]' "$PRDOC" 2>/dev/null; then
-          sed -i '/^crates: \[ \]$/d' "$PRDOC"
-          printf 'crates:\n  - name: rusty-repo-cli\n    bump: patch\n' >> "$PRDOC"
+          python3 -c "
+with open('$PRDOC') as f:
+    c = f.read()
+c = c.replace('crates: [ ]', 'crates:\n  - name: rusty-repo-cli\n    bump: patch')
+with open('$PRDOC', 'w') as f:
+    f.write(c)
+"
         fi
 
     - name: Validate PRDoc
