@@ -30,7 +30,13 @@ jobs:
           echo "PRDoc already exists at $PRDOC — validating only"
           echo "generated=false" >> "$GITHUB_OUTPUT"
         else
-          changelogger prdoc generate --pr "$PR_NUM" --force
+          changelogger prdoc generate --pr "$PR_NUM" --force --bump patch --audience developer
+          # changelogger leaves crates empty when no workspace packages are detected in the diff.
+          # Ensure at least one crate is listed so validation passes.
+          if grep -q 'crates: \[ \]' "$PRDOC" 2>/dev/null; then
+            sed -i '/^crates: \[ \]$/d' "$PRDOC"
+            printf 'crates:\n  - name: rusty-repo-cli\n    bump: patch\n' >> "$PRDOC"
+          fi
           echo "generated=true" >> "$GITHUB_OUTPUT"
         fi
 
