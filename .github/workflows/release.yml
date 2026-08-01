@@ -28,13 +28,28 @@ jobs:
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Build
         run: cargo build --release --workspace
+
+      - name: Generate Changelog
+        run: |
+          cargo install changelogger-cli
+          changelogger changelog generate \
+            --from "v$(cargo metadata --format-version 1 | jq -r '.packages[] | select(.name == "rusty-repo-cli") | .version')" \
+            --output CHANGELOG.md
+
+      - name: Commit Changelog
+        run: |
+          git config user.name "rusty-repo-bot"
+          git config user.email "bot@rusty-repo.dev"
+          git add CHANGELOG.md
+          git diff --cached --quiet || git commit -m "chore: update CHANGELOG.md for v${{ steps.version.outputs.VERSION }}"
+
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${{ github.ref_name }}" \
             --title "rusty-repo v${{ steps.version.outputs.VERSION }}" \
-            --generate-notes
+            --notes-file CHANGELOG.md
 
   container:
     runs-on: ubuntu-latest

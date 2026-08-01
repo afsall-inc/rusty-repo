@@ -59,13 +59,13 @@ Templates in `templates/` are used by `rusty-repo new`:
 
 ## PRDoc
 
-Structured PR docs at `prdoc/`. Commands:
+Structured PR docs at `prdoc/`. Requires [changelogger-cli](https://crates.io/crates/changelogger-cli):
 
 ```bash
-cargo run -- prdoc validate
-cargo run -- prdoc show prdoc/pr_1.prdoc
-cargo run -- prdoc generate --pr 42
-cargo run -- changelog generate --from v0.1.0
+changelogger prdoc validate
+changelogger prdoc show prdoc/pr_1.prdoc
+changelogger prdoc generate --pr 42
+changelogger changelog generate --from v0.1.0
 ```
 
 ## Documentation
@@ -79,7 +79,8 @@ cargo run -- changelog generate --from v0.1.0
 
 | Workflow | Trigger | Action |
 |----------|---------|--------|
-| `ci.yml` | Push/PR to `main` | fmt → clippy → test → build |
+| `ci.yml` | Push/PR to `main` | fmt → clippy → test → build → prdoc validate |
+| `prdoc.yml` | PR opened/synchronized | Generate & validate prdoc via changelogger |
 | `cd.yml` | Merge to `main` with version bump | Build & push Docker image to ghcr.io |
 | `release.yml` | Tag push `v*` | GitHub Release + Docker image to ghcr.io |
 

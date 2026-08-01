@@ -31,8 +31,21 @@ templates/
   default/          # Single crate project
   workspace/        # Multi-package workspace
   prdoc/            # PRDoc skeleton
-  changelog/        # CHANGELOG.md template
 ```
+
+## PRDoc with changelogger
+
+PR documentation uses [changelogger-cli](https://crates.io/crates/changelogger-cli) from crates.io:
+
+```bash
+cargo install changelogger-cli
+changelogger prdoc init          # scaffold prdoc/
+changelogger prdoc generate --pr 42
+changelogger prdoc validate prdoc/pr_42.prdoc
+changelogger changelog generate --from v0.1.0
+```
+
+Config is in `changelogger.toml` at the project root.
 
 Each template is a directory tree. The CLI copies it recursively, applying placeholder substitution to all files.
 
