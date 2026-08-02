@@ -28,7 +28,7 @@ jobs:
 
       - name: Generate CHANGELOG
         run: |
-          changelogger changelog generate --from v0.1.0 --output CHANGELOG.md
+          changelogger changelog generate --dir prdoc --output CHANGELOG.md
 
       - name: Commit CHANGELOG
         run: |
