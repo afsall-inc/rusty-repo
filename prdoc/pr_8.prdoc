@@ -1,0 +1,13 @@
+---
+title: "Fix release naming, add CD pipeline, align container tags"
+doc:
+  - audience: Developer
+    description: |
+      Release title format 'rusty-repo v{version}', tag as 'v{version}'.
+      Added CD pipeline with version bump detection. Aligned container
+      tag format across release and CD workflows. All workflows detect
+      version dynamically from Cargo.toml.
+crates:
+  - name: rusty-repo-cli
+    bump: patch
+---

@@ -30,7 +30,31 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-  publish:
+  changelog:
+    needs: detect
+    if: needs.detect.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install changelogger
+        run: cargo install changelogger-cli --version 0.2.1
+      - name: Generate CHANGELOG
+        run: |
+          PREV=$(cargo metadata --format-version 1 | jq -r '.packages[] | select(.name == "rusty-repo-cli") | .version')
+          changelogger changelog generate --from "v${PREV}" --output CHANGELOG.md
+      - name: Commit CHANGELOG
+        run: |
+          git config user.name "rusty-repo-bot"
+          git config user.email "bot@rusty-repo.dev"
+          git add CHANGELOG.md
+          git diff --cached --quiet || git commit -m "Update CHANGELOG.md for v${{ needs.detect.outputs.version }}"
+          git push
+
+  container:
     needs: detect
     if: needs.detect.outputs.changed == 'true'
     runs-on: ubuntu-latest

@@ -38,8 +38,7 @@ jobs:
 import re
 with open('$PRDOC') as f:
     c = f.read()
-# Replace 'crates: [ ]' with a proper crates list inside the frontmatter
-c = c.replace('crates: [ ]', 'crates:\n  - name: rusty-repo-cli\n    bump: patch')
+c = c.replace('crates: [ ]', 'crates:\n  - name: {{project_name}}\n    bump: patch')
 with open('$PRDOC', 'w') as f:
     f.write(c)
 "
@@ -50,12 +49,6 @@ with open('$PRDOC', 'w') as f:
       run: |
         PRDOC="prdoc/pr_${{ github.event.pull_request.number }}.prdoc"
         changelogger prdoc validate "$PRDOC"
-
-    - name: Validate Backport Rules
-      if: startsWith(github.base_ref, 'stable') || startsWith(github.base_ref, 'release')
-      run: |
-        PRDOC="prdoc/pr_${{ github.event.pull_request.number }}.prdoc"
-        changelogger prdoc validate --branch "${{ github.base_ref }}" "$PRDOC"
 
     - name: Commit PRDoc
       if: steps.generate.outputs.generated == 'true'

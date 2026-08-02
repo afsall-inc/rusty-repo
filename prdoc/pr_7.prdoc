@@ -1,0 +1,13 @@
+---
+title: "Update docs and AGENTS.md for v0.1.1 release"
+doc:
+  - audience: Developer
+    description: |
+      Updated AGENTS.md, README.md, docs/getting-started/overview.md,
+      docs/architecture/overview.md, docs/contributor/guide.md,
+      docs/agent/index.md for v0.1.1. Added crates.io and Docker
+      install instructions, CI/CD workflow table, container image docs.
+crates:
+  - name: rusty-repo-cli
+    bump: patch
+---

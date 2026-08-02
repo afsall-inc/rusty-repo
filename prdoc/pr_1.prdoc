@@ -1,0 +1,12 @@
+---
+title: "Add docs folder with installation, architecture, and contributor guides"
+doc:
+  - audience: Developer
+    description: |
+      Created docs/index.md, docs/getting-started/overview.md,
+      docs/architecture/overview.md, docs/contributor/guide.md,
+      docs/agent/index.md. Updated AGENTS.md with docs section.
+crates:
+  - name: rusty-repo-cli
+    bump: patch
+---

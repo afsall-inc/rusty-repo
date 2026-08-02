@@ -35,10 +35,10 @@ templates/
 
 ## PRDoc with changelogger
 
-PR documentation uses [changelogger-cli](https://crates.io/crates/changelogger-cli) from crates.io:
+PR documentation uses [changelogger-cli](https://crates.io/crates/changelogger-cli) v0.2.1 from crates.io:
 
 ```bash
-cargo install changelogger-cli
+cargo install changelogger-cli --version 0.2.1
 changelogger prdoc init          # scaffold prdoc/
 changelogger prdoc generate --pr 42
 changelogger prdoc validate prdoc/pr_42.prdoc

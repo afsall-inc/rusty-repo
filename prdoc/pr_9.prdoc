@@ -1,0 +1,14 @@
+---
+title: "Replace local prdoc system with changelogger-cli from crates.io"
+doc:
+  - audience: Developer
+    description: |
+      Replaced .prdoc.toml with changelogger.toml. Added prdoc/
+      directory with schema_user.json. Added prdoc.yml workflow
+      for auto-generate + validate on PR. Updated ci.yml and
+      release.yml to use changelogger. Updated templates.
+      Removed old templates/prdoc and templates/changelog.
+crates:
+  - name: rusty-repo-cli
+    bump: minor
+---

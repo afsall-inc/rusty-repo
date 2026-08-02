@@ -46,10 +46,10 @@ mise run build    # cargo build --workspace
 
 ## PRDoc
 
-Structured PR docs at `prdoc/`. Requires [changelogger-cli](https://crates.io/crates/changelogger-cli):
+Structured PR docs at `prdoc/`. Requires [changelogger-cli](https://crates.io/crates/changelogger-cli) v0.2.1:
 
 ```bash
-cargo install changelogger-cli
+cargo install changelogger-cli --version 0.2.1
 changelogger prdoc validate
 changelogger prdoc generate --pr 42
 changelogger changelog generate --from v0.1.0

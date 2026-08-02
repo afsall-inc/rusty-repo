@@ -1,0 +1,14 @@
+---
+title: "Rewrite CI/CD to use changelogger-cli v0.2.1 from crates.io"
+doc:
+  - audience: Developer
+    description: |
+      Rewrote all CI/CD workflows to use changelogger-cli v0.2.1
+      from crates.io. Added command-prdoc.yml for manual prdoc
+      generation. CD now generates CHANGELOG.md on version bump.
+      Release generates CHANGELOG, commits it, creates GitHub
+      Release with notes. Updated all templates and docs.
+crates:
+  - name: rusty-repo-cli
+    bump: minor
+---
