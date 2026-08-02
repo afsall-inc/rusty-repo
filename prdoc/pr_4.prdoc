@@ -1,0 +1,12 @@
+---
+title: "Add container image CD pipeline"
+doc:
+  - audience: Developer
+    description: |
+      Added Dockerfile with multi-stage build, .dockerignore,
+      cd.yml workflow for ghcr.io publishing on version bump,
+      container job in release.yml, AGENTS.md and README updates.
+crates:
+  - name: rusty-repo-cli
+    bump: minor
+---

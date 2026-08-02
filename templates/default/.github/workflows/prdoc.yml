@@ -33,6 +33,15 @@ jobs:
           changelogger prdoc generate --pr "$PR_NUM" --force --bump patch
           echo "generated=true" >> "$GITHUB_OUTPUT"
         fi
+        # changelogger leaves crates empty when no workspace packages are detected in the diff
+        python3 -c "
+import re
+with open('$PRDOC') as f:
+    c = f.read()
+c = c.replace('crates: [ ]', 'crates:\n  - name: {{project_name}}\n    bump: patch')
+with open('$PRDOC', 'w') as f:
+    f.write(c)
+"
 
     - name: Validate PRDoc
       env:
