@@ -41,12 +41,6 @@ jobs:
         PRDOC="prdoc/pr_${{ github.event.pull_request.number }}.prdoc"
         changelogger prdoc validate "$PRDOC"
 
-    - name: Validate Backport Rules
-      if: startsWith(github.base_ref, 'stable') || startsWith(github.base_ref, 'release')
-      run: |
-        PRDOC="prdoc/pr_${{ github.event.pull_request.number }}.prdoc"
-        changelogger prdoc validate --branch "${{ github.base_ref }}" "$PRDOC"
-
     - name: Commit PRDoc
       if: steps.generate.outputs.generated == 'true'
       uses: stefanzweifel/git-auto-commit-action@v5

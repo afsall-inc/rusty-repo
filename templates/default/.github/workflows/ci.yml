@@ -25,16 +25,3 @@ jobs:
         run: cargo test --workspace
       - name: Build
         run: cargo build --workspace
-
-      - name: Validate PRDoc
-        if: github.event_name == 'pull_request'
-        env:
-          CI: "true"
-        run: |
-          cargo install changelogger-cli
-          PRDOC="prdoc/pr_${{ github.event.pull_request.number }}.prdoc"
-          if [ -f "$PRDOC" ]; then
-            changelogger prdoc validate "$PRDOC"
-          else
-            echo "No prdoc found at $PRDOC (skipping validation)"
-          fi
