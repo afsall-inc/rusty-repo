@@ -41,10 +41,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install changelogger
-        run: cargo install changelogger-cli --version 0.2.1
+        run: cargo install changelogger-cli --version 0.2.2
       - name: Generate CHANGELOG
         run: |
-          changelogger changelog generate --dir prdoc --output CHANGELOG.md
+          changelogger changelog generate --dir prdoc --output CHANGELOG.md --release "${{ needs.detect.outputs.version }}"
       - name: Commit CHANGELOG
         run: |
           git config user.name "rusty-repo-bot"
