@@ -41,11 +41,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install changelogger
-        run: cargo install changelogger-cli --version 0.2.1
+        run: cargo install changelogger-cli --version 0.2.2
       - name: Generate CHANGELOG
         run: |
-          PREV=$(cargo metadata --format-version 1 | jq -r '.packages[] | select(.name == "rusty-repo-cli") | .version')
-          changelogger changelog generate --from "v${PREV}" --output CHANGELOG.md
+          changelogger changelog generate --dir prdoc --output CHANGELOG.md --release "${{ needs.detect.outputs.version }}"
       - name: Commit CHANGELOG
         run: |
           git config user.name "rusty-repo-bot"
