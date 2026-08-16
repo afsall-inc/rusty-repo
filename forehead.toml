@@ -1,0 +1,19 @@
+[project]
+name = "rusty-repo"
+default_license = "Apache-2.0 OR MIT"
+default_author = "Afsall Inc"
+default_year = 2026
+repository = "https://github.com/afsall-inc/rusty-repo"
+description = "Template generator for Rust projects with CI/CD, PRDoc, and agentic infrastructure"
+
+[templates]
+mit-apache = "docs/LICENSES/headers/HEADER-MIT-APACHE"
+
+[[mapping]]
+paths = ["."]
+template = "mit-apache"
+
+[header]
+# indicators = []
+
+[file_types]
