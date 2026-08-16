@@ -34,6 +34,19 @@ mise run build    # cargo build --workspace
 
 **Required order** (CI enforces): `fmt (--check)` → `clippy -D warnings` → `test`
 
+## File Headers
+
+License headers are managed by [forehead-cli](https://crates.io/crates/forehead-cli) v0.2.2:
+
+```bash
+cargo install forehead-cli --version 0.2.2
+forehead check   # CI mode — exit 1 on missing/wrong headers
+forehead apply   # Apply headers to all source files
+forehead list    # List files and header status
+```
+
+Config lives in `forehead.toml`; header templates in `docs/LICENSES/headers/`. TOML files are ignored by default — only source files (Rust, Dockerfile, etc.) get headers.
+
 ## Templates
 
 Templates in `templates/` are used by `rusty-repo new`:
