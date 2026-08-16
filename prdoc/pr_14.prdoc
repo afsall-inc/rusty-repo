@@ -1,0 +1,18 @@
+---
+title: Upgrade to forehead-cli v0.2.2 and apply file headers
+author: balqaasem
+pr: 14
+
+doc:
+  - audience: Developer
+    description: |
+      - Install forehead-cli v0.2.2 (ignores TOML files by default)
+      - Create forehead.toml with project config
+      - Create HEADER-MIT-APACHE license header template
+      - Apply license headers to Dockerfile, rust source files
+      - Add File Headers section to AGENTS.md
+
+crates:
+  - name: rusty-repo-cli
+    bump: patch
+---
